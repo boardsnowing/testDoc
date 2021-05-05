@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div id="doc_title"></div>
+        <button id="addRow">列追加</button>
+        <button id="removeRow">列削除</button>
+        <br>
+        <span>
+            テストファイルimport: 
+            <input type=file id="importcsv">
+            <br>
+            テストファイルexport: 
+            <input type=text id="exportfilename"><button id="exportcsv">export</button>
+        </span>
+        <br>
+        <input type="text" id="prepare" size=>
+        <table>
+            <thead>
+                <td></td>
+                <td>No.</td>
+                <td>大項目</td>
+                <td>小項目</td>
+                <td>入力</td>
+                <td>期待値</td>
+            </thead>
+            <tbody id="list_parent"></tbody>
+        </table>
+        <script src="src/line.js"></script>
+        <script src="src/testlist.js"></script>
+    </body>
+</html>
