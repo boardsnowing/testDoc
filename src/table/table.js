@@ -1,4 +1,5 @@
 import {reactive} from "vue";
+import moment from 'moment';
 
 export function useTable(){
     const testList = reactive({
@@ -24,7 +25,7 @@ export function useTable(){
                 id: funcNo,
                 name: funcName,
                 testItem: [],
-                testDate: Date(0)
+                testDate: moment()
             }
 
             //間にある場合はinsert、それ以外はpush
@@ -69,7 +70,10 @@ export function useTable(){
             secondary: "",
             input: "",
             expect: "",
-            checked: false
+            checked: false,
+            result: false,
+            testDate: moment(),
+            reason: ""
         };
 
         //チェックがついていたら挿入
@@ -110,6 +114,23 @@ export function useTable(){
 
     };
 
+    const setTestResult = (funcNo, result, reason)=>{
+        let funcArg = getFuncItemArg(funcNo);
+
+        //日付set
+        const exeDate = moment();
+
+        if(result == false)
+        {
+            testList.funcList[funcArg].reason = reason;
+        }
+
+        testList.funcList[funcArg].result = result;
+        testList.funcList[funcArg].testDate = exeDate;
+
+    };
+
+
     const getFuncItemArg = (funcNo)=>{
         let retArg = 0;
         for(let funcArg = 0; funcArg < testList.funcList.length; ++funcArg){
@@ -122,6 +143,8 @@ export function useTable(){
         return retArg;
     };
 
+
+
     function arrange(idx){
         let id = 1;
         for(let item of testList.funcList[idx].testItem){
@@ -131,6 +154,6 @@ export function useTable(){
         }
     }
 
-    return {testList, addFunctionTest, removeFunctionTest, addRow, removeRow, checkAll, getFuncItemArg, uncheckAll};
+    return {testList, addFunctionTest, removeFunctionTest, addRow, removeRow, checkAll, getFuncItemArg, uncheckAll, setTestResult};
 
 }

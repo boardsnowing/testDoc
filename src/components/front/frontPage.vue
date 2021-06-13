@@ -17,7 +17,7 @@
             <tr v-for="item in testList.funcList" :key="item.id">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.testDate}}</td>
+                <td >{{formatDate(item.testDate)}}</td>
                 <td><router-link :to="{name: 'editor', params: {id: item.id}}">edit</router-link></td>
                 <td><router-link :to="{name: 'testing', params: {id: item.id}}">testing</router-link></td>
             </tr>
@@ -27,6 +27,7 @@
 <script>
 
 import {inject} from "vue";
+import moment from "moment";
 
 
 export default {
@@ -36,12 +37,23 @@ export default {
         const testNo = 0;
         const testName = "";
 
+        const showDate = (date)=>{
+            console.log(date);
+            return date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
+        }
+
         const {testList} = inject("useTable");
 
         const {addFunctionTest} = inject("useTable");
         const {removeFunctionTest} = inject("useTable");
 
-        return {testNo, testName, testList, addFunctionTest, removeFunctionTest};
+        return {testNo, testName, testList, addFunctionTest, removeFunctionTest, showDate};
+    },
+    methods: {
+        formatDate(date){
+            return moment(date).format("YYYY/MM/DD");
+        }
+
     },
 }
 </script>
